@@ -30,6 +30,8 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
         lbFullName.setText(fullName);
         lbEmail.setText(email);
         
+        btnReSelect.setVisible(false);
+        
     }
 
     /**
@@ -48,6 +50,7 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
         lbFullName = new javax.swing.JLabel();
         lbEmail = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        btnReSelect = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -68,46 +71,62 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Employee Id: ");
 
         lbId.setText("Unselected");
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Employee Full Name: ");
 
         lbFullName.setText("Unselected");
 
         lbEmail.setText("Unselected");
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Employee Email: ");
+
+        btnReSelect.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btnReSelect.setForeground(new java.awt.Color(0, 153, 51));
+        btnReSelect.setText("RE SELECT EMPLOYEE");
+        btnReSelect.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReSelectMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
+                .addComponent(btnReSelect)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSelectEmployee)
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnSelectEmployee)
-                                .addGap(196, 196, 196))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +143,11 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lbEmail))
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReSelect)
+                .addGap(32, 32, 32)
                 .addComponent(btnSelectEmployee)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,6 +157,7 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
     private void btnSelectEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelectEmployeeMouseClicked
         if(btnSelectEmployee.getText().equals("START ENROLLMENT")){
             new FingerDataEnrollmentStartEnrollment(new JFrame(),true).setVisible(true);
+            dispose();
         }else{
             new FingerDataEnrollmentSelectEmployeeDialog(new JFrame(), true).setVisible(true);
         }
@@ -146,10 +168,16 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
         lbFullName.setText(fullName);
         lbEmail.setText(email);
         
-        if(!id.equals("Unselected"))
+        if(!id.equals("Unselected")){
             btnSelectEmployee.setText("START ENROLLMENT");
+            btnReSelect.setVisible(true);
+        }   
         
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void btnReSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReSelectMouseClicked
+        new FingerDataEnrollmentSelectEmployeeDialog(new JFrame(), true).setVisible(true);
+    }//GEN-LAST:event_btnReSelectMouseClicked
 
     /**
      * @param args the command line arguments
@@ -195,6 +223,7 @@ public class FingerDataEnrollmentDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnReSelect;
     private javax.swing.JLabel btnSelectEmployee;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

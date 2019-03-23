@@ -64,6 +64,9 @@ public class FingerDataEnrollmentStartEnrollment extends javax.swing.JDialog {
                 try{
                     
                     DB.con().createStatement().executeUpdate("INSERT INTO tb_finger(finger_data, employee_id) VALUES ('"+get()+"','"+FingerDataEnrollmentDialog.id+"')");
+                    FingerDataEnrollmentDialog.id = "Unselected";
+                    FingerDataEnrollmentDialog.fullName = "Unselected";
+                    FingerDataEnrollmentDialog.email = "Unselected";
                     dispose();
                                         
                 }catch(Exception e){

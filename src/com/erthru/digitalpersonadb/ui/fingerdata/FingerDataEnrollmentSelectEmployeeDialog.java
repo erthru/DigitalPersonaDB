@@ -7,6 +7,7 @@ package com.erthru.digitalpersonadb.ui.fingerdata;
 
 import com.erthru.digitalpersonadb.ui.employeedata.EmployeeDataUpdateDialog;
 import com.erthru.digitalpersonadb.utils.DB;
+import com.erthru.digitalpersonadb.utils.MsgBox;
 import java.awt.Color;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -88,6 +89,24 @@ public class FingerDataEnrollmentSelectEmployeeDialog extends javax.swing.JDialo
         }
         
         tableEmployee.setModel(dtm);
+        
+    }
+    
+    private Boolean isIdExist(String id){
+
+        Boolean isExist = false;
+        
+        try{
+            
+            ResultSet rs = DB.con().createStatement().executeQuery("SELECT employee_id FROM tb_finger WHERE employee_id = '"+id+"'");
+            if(rs.next())
+                isExist = true;
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return isExist;
         
     }
 
@@ -183,10 +202,15 @@ public class FingerDataEnrollmentSelectEmployeeDialog extends javax.swing.JDialo
     }//GEN-LAST:event_txSearchFocusLost
 
     private void tableEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEmployeeMouseClicked
-        FingerDataEnrollmentDialog.id = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 0).toString();
-        FingerDataEnrollmentDialog.fullName = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 1).toString();
-        FingerDataEnrollmentDialog.email = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 2).toString();
-        dispose();
+        
+        if(isIdExist(tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 0).toString())){
+            MsgBox.error("This Employee Already Enrollment.");
+        }else{
+            FingerDataEnrollmentDialog.id = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 0).toString();
+            FingerDataEnrollmentDialog.fullName = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 1).toString();
+            FingerDataEnrollmentDialog.email = tableEmployee.getValueAt(tableEmployee.getSelectedRow(), 2).toString();
+            dispose();
+        }
     }//GEN-LAST:event_tableEmployeeMouseClicked
 
     private void txSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txSearchKeyReleased
