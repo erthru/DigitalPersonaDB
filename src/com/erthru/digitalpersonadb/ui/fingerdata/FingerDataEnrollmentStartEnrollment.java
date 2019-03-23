@@ -74,6 +74,8 @@ public class FingerDataEnrollmentStartEnrollment extends javax.swing.JDialog {
             
         }
         
+        new Task().execute();
+        
     }
 
     /**
