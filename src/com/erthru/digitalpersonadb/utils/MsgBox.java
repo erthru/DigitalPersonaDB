@@ -28,7 +28,7 @@ public class MsgBox {
     
     public static void warning(String msg){
         
-        JOptionPane.showMessageDialog(null, msg, "Warning", 0, new ImageIcon("./src/com/erthru/digitalpersonadb/assets/img_error.png"));
+        JOptionPane.showMessageDialog(null, msg, "Warning", 0, new ImageIcon("./src/com/erthru/digitalpersonadb/assets/img_warning.png"));
         
     }
     
