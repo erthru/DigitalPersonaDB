@@ -1,5 +1,8 @@
 package com.erthru.digitalpersonadb.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -19,8 +22,37 @@ public class DB {
         
         Connection conn = null;
         
+        String config = "./config";
+        
+        File file = new File(config);
+        
+        FileReader fr = new FileReader(file);
+        
+        BufferedReader br = new BufferedReader(fr);
+        
+        String line;
+        int index = 0;
+        
+        String server = null;
+        String user = null;
+        String password = null;
+        String database = null;
+        
+        while ((line = br.readLine()) != null){
+            if(index == 0){
+                server = line.replace("server=", "").replace("'", "").replace(";", "");
+            }else if(index == 1){
+                user = line.replace("user=", "").replace("'", "").replace(";", "");
+            }else if(index == 2){
+                password = line.replace("password=", "").replace("'", "").replace(";", "");
+            }else if(index == 3){
+                database = line.replace("database_name=", "").replace("'", "").replace(";", "");
+            }
+            index++;
+        }
+                
         Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost/db_digitalpersona", "root", "");
+        conn = DriverManager.getConnection("jdbc:mysql://"+server+"/"+database, user, password);
         
         return conn;
         
