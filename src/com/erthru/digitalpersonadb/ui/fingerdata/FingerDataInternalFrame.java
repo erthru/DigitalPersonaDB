@@ -83,9 +83,9 @@ public class FingerDataInternalFrame extends javax.swing.JInternalFrame {
                     + ""
                     + "FROM tb_finger "
                     + ""
-                    + "WHERE tb_employee.employee_id LIKE '%"+keywords+"%' OR tb_employee.employee_fullname LIKE '%"+keywords+"%' "
-                    + ""
                     + "LEFT JOIN tb_employee ON tb_finger.employee_id = tb_employee.employee_id "
+                    + ""
+                    + "WHERE tb_employee.employee_id LIKE '%"+keywords+"%' OR tb_employee.employee_fullname LIKE '%"+keywords+"%' "
                     + "");
             
             while(rs.next()){
