@@ -5,6 +5,7 @@
  */
 package com.erthru.digitalpersonadb.ui.main;
 
+import com.erthru.digitalpersonadb.ui.checkfinger.CheckFingerInternalFrame;
 import com.erthru.digitalpersonadb.ui.employeedata.EmployeeDataInternalFrame;
 import com.erthru.digitalpersonadb.ui.fingerdata.FingerDataInternalFrame;
 import java.awt.event.ActionEvent;
@@ -133,7 +134,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("• Attandance");
+        jLabel6.setText("• Check Finger");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -230,6 +236,23 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        
+        dp.removeAll();
+        dp.updateUI();
+
+        CheckFingerInternalFrame frame = new CheckFingerInternalFrame();
+        frame.setVisible(true);
+        dp.add(frame);
+        
+        try{
+            frame.setMaximum(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

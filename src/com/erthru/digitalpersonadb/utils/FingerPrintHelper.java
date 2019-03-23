@@ -20,6 +20,8 @@ import com.digitalpersona.onetouch.capture.event.DPFPReaderStatusEvent;
 import com.digitalpersona.onetouch.processing.DPFPEnrollment;
 import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
+import com.digitalpersona.onetouch.verification.DPFPVerification;
+import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -121,5 +123,33 @@ public class FingerPrintHelper {
 	        capture.stopCapture();
 	    } 
     }
+    
+    public boolean verify(DPFPSample sample1, DPFPTemplate template) {
+			 
+        try { 
+            DPFPSample sample = sample1;
+            if (sample == null)
+                throw new Exception();
+ 
+            DPFPFeatureExtraction featureExtractor = DPFPGlobal.getFeatureExtractionFactory().createFeatureExtraction();
+            DPFPFeatureSet featureSet = featureExtractor.createFeatureSet(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
+			 
+            DPFPVerification matcher = DPFPGlobal.getVerificationFactory().createVerification();
+            matcher.setFARRequested(DPFPVerification.MEDIUM_SECURITY_FAR);
+             
+            for (DPFPFingerIndex finger : DPFPFingerIndex.values()) {
+                if (template != null) {
+                    DPFPVerificationResult result = matcher.verify(featureSet, template);
+                    if (result.isVerified()) {
+                        return result.isVerified();
+                    } 
+                } 
+            } 
+        } catch (Exception e) {
+            MsgBox.error("Failed to perform verification.");
+        } 
+         
+        return false; 
+    } 
     
 }
